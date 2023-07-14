@@ -1,0 +1,13 @@
+[server]
+port = 5556
+
+[node]
+detect-drivers = false
+
+[relay]
+url = "http://host.docker.internal:4724"
+status-endpoint = "/status"
+
+[[relay.configs]]
+max-sessions = 1
+stereotype = '{"platformName":"android","appium:automationName":"UIAutomator2","appium:udid":"emulator-5556","appium:platformVersion":"11","appium:systemPort":"8102"}'
