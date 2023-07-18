@@ -3,6 +3,17 @@
 This project has been created to demonstrate how a QA Engineer can perform Mobile Testing using Appium + WebDriver.IO+ Selenium Grid 4 + Docker to do parallel executions on a network grid </br> </br>
 More commands and insights about the integration at [WebDriverIO Appium docs](https://webdriver.io/docs/api/appium/)
 
+
+<p align="center">
+<img height="500" src="https://user-images.githubusercontent.com/95698164/171858189-9de5d3ef-f177-49ac-9de6-6edb3441740b.png">
+</p>
+
+&emsp;
+&emsp;
+&emsp;
+
+Appium is a tool for automating native, mobile web, and hybrid applications on iOS, Android, and Windows platforms. It supports iOS native apps written in Objective-C or Swift and Android native apps written in Java or Kotlin. It also supports mobile web apps accessed using a mobile browser (Appium supports Safari on iOS and Chrome or the built-in 'Browser' app on Android). 
+
 - - - 
 ## General System Requirements
 
