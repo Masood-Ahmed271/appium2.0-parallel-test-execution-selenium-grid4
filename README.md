@@ -1,8 +1,6 @@
-# Commands Used
+# Appium 2.0 + WebDriver.IO + Selenium Grid 4 + Docker- Android Example
 
-# Appium + WebDriver.IO Demo Framework - Android & IOS Example
-
-This project has been created to demonstrate how a QA Engineer can perform Mobile Testing using Appium + WebDriver.IO
+This project has been created to demonstrate how a QA Engineer can perform Mobile Testing using Appium + WebDriver.IO+ Selenium Grid 4 + Docker to do parallel executions on a network grid </br> </br>
 More commands and insights about the integration at [WebDriverIO Appium docs](https://webdriver.io/docs/api/appium/)
 
 - - - 
@@ -261,19 +259,35 @@ appium driver install uiautomator2
 ```bash
 npm i -D typescript ts-node
 ```
+5 - Install Docker:
 
-* Install the docker service as well!
+* Install Docker Desktop from the official website of Docker on your machine. [Install Docker](https://docs.docker.com/desktop/install/mac-install/)
+
+* Complete the installation. Check if the docker is installed by running the following command in the terminal
+```bash
+docker --version
+```
+* Install the docker service in your package.json of your project if not already there!
 ```bash
 npm install wdio-docker-service --save-dev
 ```
 
-* Run your scripts using
+6 - Running the project:
+
+* Do an npm install if not all packages are installed
+
+* Open the emulators. The emulators used in the project are:
+    - {"platformName":"android","appium:automationName":"UIAutomator2","appium:udid":"emulator-5554","appium:platformVersion":"12","appium:systemPort":"8101"}
+    - {"platformName":"android","appium:automationName":"UIAutomator2","appium:udid":"emulator-5556","appium:platformVersion":"11","appium:systemPort":"8102"}
+
+* In Run.sh, specify the correct paths for appium1, appium2 and docker
+
+* Now just run the following command
+```bash
+./Run.sh
+```
+
+* Once this has been Run, Run the following command
 ```bash
 npx wdio
 ```
-
-
-
-java -cp selenium-server-standalone-3.141.59.jar:selenium-grid-custom-matcher-3.141.59.jar org.openqa.grid.selenium.GridLauncherV3 -role hub -hubConfig hubConfig.json
-
-appium -p 6000 --nodeconfig ./selenium-grid/node_6000_config.json 

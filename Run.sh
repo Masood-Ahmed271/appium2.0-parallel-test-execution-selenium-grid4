@@ -17,7 +17,3 @@ osascript -e "tell application \"Terminal\" to do script \"${appiumService2}\""
 echo "Running appium server 2 and Waiting for 5 seconds. . ."
 sleep 5
 osascript -e "tell application \"Terminal\" to do script \"${runDocker}\""
-# echo "Running docker and waiting for it to initialize by Waiting for 30 seconds. . ."
-# sleep 30
-# osascript -e "tell application \"Terminal\" to do script \"${runTetsingScript}\""
-# echo "Running testing script. . ."

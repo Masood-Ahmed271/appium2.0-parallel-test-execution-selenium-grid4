@@ -5,7 +5,8 @@ version: "3"
 services:
   node-1:
     container_name: node-1
-    image: selenium/node-docker:latest
+    image: seleniarm/node-docker:latest    # use this for arm64 architectures and this is backwards compaitable with both
+    # image: selenium/node-docker:latest   # use this for architectures which are not arm64
     volumes:
       - ./resources/nodes/node_1.toml:/opt/bin/config.toml
     depends_on:
@@ -21,7 +22,8 @@ services:
 
   node-2:
     container_name: node-2
-    image: selenium/node-docker:latest
+    image: seleniarm/node-docker:latest    # use this for arm64 architectures and this is backwards compaitable with both
+    # image: selenium/node-docker:latest   # use this for architectures which are not arm64
     volumes:
       - ./resources/nodes/node_2.toml:/opt/bin/config.toml
     depends_on:
@@ -36,7 +38,8 @@ services:
       - "host.docker.internal:host-gateway"
 
   selenium-hub:
-    image: selenium/hub:latest
+    image: seleniarm/hub:latest    # use this for arm64 architectures and this is backwards compaitable with both
+    # image: selenium/hub:latest   # use this for architectures which are not arm64
     container_name: selenium-hub
     environment:
       - SE_NODE_SESSION_TIMEOUT=300
