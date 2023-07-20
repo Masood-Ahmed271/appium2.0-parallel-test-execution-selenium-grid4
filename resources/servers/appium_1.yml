@@ -1,0 +1,6 @@
+server:
+  port: 4723
+  keep-alive-timeout: 80
+  session-override: true
+  use-drivers:
+    - uiautomator2
