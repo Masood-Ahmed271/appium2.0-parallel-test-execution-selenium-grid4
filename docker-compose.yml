@@ -37,13 +37,51 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
+  firefox-1:
+    container_name: firefox-1
+    image: selenium/node-firefox:latest
+    shm_size: 2gb
+    depends_on:
+      - selenium-hub
+    environment:
+      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - VNC_NO_PASSWORD=1
+      - SE_NODE_MAX_SESSIONS=2
+      - SE_NODE_SESSION_TIMEOUT=600000
+      - GRID_BROWSER_TIMEOUT=600000
+      - GRID_TIMEOUT=600000
+      - SE_SESSION_REQUEST_TIMEOUT=600000
+    ports:
+      - "7900:7900"
+
+  # firefox-2:
+  #   container_name: firefox-2
+  #   image: selenium/node-firefox:latest
+  #   shm_size: 2gb
+  #   depends_on:
+  #     - selenium-hub
+  #   environment:
+  #     - SE_EVENT_BUS_HOST=selenium-hub
+  #     - SE_EVENT_BUS_PUBLISH_PORT=4442
+  #     - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+  #     - VNC_NO_PASSWORD=1
+  #     - SE_NODE_MAX_SESSIONS=1
+  #     - SE_NODE_SESSION_TIMEOUT=600000
+  #     - GRID_BROWSER_TIMEOUT=600000
+  #     - GRID_TIMEOUT=600000
+  #     - SE_SESSION_REQUEST_TIMEOUT=600000
+  #   ports:
+  #     - "7910:7910"
+
   selenium-hub:
     image: seleniarm/hub:latest    # use this for arm64 architectures and this is backwards compaitable with both
     # image: selenium/hub:latest   # use this for architectures which are not arm64
     container_name: selenium-hub
     environment:
-      - SE_NODE_SESSION_TIMEOUT=300
-      - SE_SESSION_REQUEST_TIMEOUT=30
+      - SE_NODE_SESSION_TIMEOUT=600000
+      - SE_SESSION_REQUEST_TIMEOUT=600000
       - SE_SESSION_RETRY_INTERVAL=5
     ports:
       - "4442:4442"
