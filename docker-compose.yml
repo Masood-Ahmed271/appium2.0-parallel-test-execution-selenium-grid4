@@ -1,60 +1,60 @@
 # To execute this docker-compose yml file use `docker-compose -f docker-compose.yml up`
 # Add the `-d` flag at the end for detached execution
 # To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose.yml down`
-version: "3"
-services:
-  node-1:
-    container_name: node-1
+version: "3"      # Docker Compose file version
+services:         # Defines the services (containers)
+  node-1:         # Node-1 service
+    container_name: node-1        # Container name
     image: seleniarm/node-docker:latest    # use this for arm64 architectures and this is backwards compaitable with both
     # image: selenium/node-docker:latest   # use this for architectures which are not arm64
     volumes:
-      - ./resources/nodes/node_1.toml:/opt/bin/config.toml
+      - ./resources/nodes/node_1.toml:/opt/bin/config.toml          # Mounts local file into container
     depends_on:
-      - selenium-hub
+      - selenium-hub         # Depends on selenium-hub service
     environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
-      - SE_NODE_MAX_SESSIONS=1
+      - SE_EVENT_BUS_HOST=selenium-hub           # Specifies the Selenium hub host
+      - SE_EVENT_BUS_PUBLISH_PORT=4442           # Specifies the port for publishing events
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443         # Specifies the port for subscribing to events
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true       # Overrides the maximum number of sessions allowed per node
+      - SE_NODE_MAX_SESSIONS=1                # Specifies the maximum number of sessions allowed per node
     extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - "host.docker.internal:host-gateway"              # Maps host.docker.internal to host gateway IP
 
-  node-2:
-    container_name: node-2
+  node-2:                  # Node-2 service
+    container_name: node-2             # Container name
     image: seleniarm/node-docker:latest    # use this for arm64 architectures and this is backwards compaitable with both
     # image: selenium/node-docker:latest   # use this for architectures which are not arm64
     volumes:
-      - ./resources/nodes/node_2.toml:/opt/bin/config.toml
+      - ./resources/nodes/node_2.toml:/opt/bin/config.toml                # Mounts local file into container
     depends_on:
-      - selenium-hub
+      - selenium-hub               # Depends on selenium-hub service
     environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
-      - SE_NODE_MAX_SESSIONS=1
+      - SE_EVENT_BUS_HOST=selenium-hub           # Specifies the Selenium hub host
+      - SE_EVENT_BUS_PUBLISH_PORT=4442           # Specifies the port for publishing events
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443          # Specifies the port for subscribing to events
+      - SE_NODE_OVERRIDE_MAX_SESSIONS=true        # Overrides the maximum number of sessions allowed per node
+      - SE_NODE_MAX_SESSIONS=1                # Specifies the maximum number of sessions allowed per node
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
-  firefox-1:
-    container_name: firefox-1
-    image: selenium/node-firefox:latest
-    shm_size: 2gb
+  firefox-1:                  # Firefox-1 service
+    container_name: firefox-1               # Container name
+    image: selenium/node-firefox:latest               # Docker image for running Firefox
+    shm_size: 2gb                       # Sets shared memory size to 2GB
     depends_on:
-      - selenium-hub
+      - selenium-hub                  # Depends on selenium-hub service
     environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - VNC_NO_PASSWORD=1
-      - SE_NODE_MAX_SESSIONS=2
-      - SE_NODE_SESSION_TIMEOUT=600000
-      - GRID_BROWSER_TIMEOUT=600000
-      - GRID_TIMEOUT=600000
-      - SE_SESSION_REQUEST_TIMEOUT=600000
+      - SE_EVENT_BUS_HOST=selenium-hub           # Specifies the Selenium hub host
+      - SE_EVENT_BUS_PUBLISH_PORT=4442           # Specifies the port for publishing events
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443          # Specifies the port for subscribing to events
+      - VNC_NO_PASSWORD=1                  # Enables VNC access without a password so that videos can be seen on selenium grid 4
+      - SE_NODE_MAX_SESSIONS=2             # Specifies the maximum number of sessions allowed per node
+      - SE_NODE_SESSION_TIMEOUT=600000     # Specifies the session timeout in milliseconds
+      - GRID_BROWSER_TIMEOUT=600000        # Specifies the browser timeout in milliseconds
+      - GRID_TIMEOUT=600000                # Specifies the grid timeout in milliseconds
+      - SE_SESSION_REQUEST_TIMEOUT=600000   # Specifies the session request timeout in milliseconds
     ports:
-      - "7900:7900"
+      - "7900:7900"              # Maps container port 7900 to host port 7900
 
   # firefox-2:
   #   container_name: firefox-2
@@ -75,15 +75,15 @@ services:
   #   ports:
   #     - "7910:7910"
 
-  selenium-hub:
+  selenium-hub:                    # Selenium hub service
     image: seleniarm/hub:latest    # use this for arm64 architectures and this is backwards compaitable with both
     # image: selenium/hub:latest   # use this for architectures which are not arm64
-    container_name: selenium-hub
+    container_name: selenium-hub            # Container name
     environment:
-      - SE_NODE_SESSION_TIMEOUT=600000
-      - SE_SESSION_REQUEST_TIMEOUT=600000
-      - SE_SESSION_RETRY_INTERVAL=5
+      - SE_NODE_SESSION_TIMEOUT=600000         # Specifies the session timeout in milliseconds
+      - SE_SESSION_REQUEST_TIMEOUT=600000      # Specifies the session request timeout in milliseconds
+      - SE_SESSION_RETRY_INTERVAL=5            # Specifies the interval for retrying sessions in seconds
     ports:
-      - "4442:4442"
+      - "4442:4442"              # Maps container port 4442 to host port 4442
       - "4443:4443"
       - "4444:4444"
